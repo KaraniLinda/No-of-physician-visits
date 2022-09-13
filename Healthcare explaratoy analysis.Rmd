@@ -1,0 +1,37 @@
+---
+title: "explaratory analysis - no of visits"
+output: html_document
+date: "2022-09-13"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+```{r}
+#Loading necessary libraries
+
+library(tidyverse)
+library(modelr)
+library(broom)
+
+```
+
+```{r}
+#Getting the data set
+
+data <- read.csv("Health data set.csv")
+```
+
+# Data glimpse
+
+```{r}
+glimpse(data)
+```
+
+```{r}
+summary(data)
+```
+
