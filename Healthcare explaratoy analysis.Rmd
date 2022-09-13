@@ -35,3 +35,87 @@ glimpse(data)
 summary(data)
 ```
 
+# Data transformation
+
+```{r}
+data2 <- data %>% 
+    mutate(actualage = age*10,
+           actualincome = faminc*10000)
+
+data2
+```
+```{r}
+
+library(knitr)
+
+data2 %>% 
+    kable(actualincome)
+```
+
+
+
+# Distributions by gender
+```{r}
+data2 %>% 
+    ggplot(aes(x = black)) + geom_bar(fill = "pink") +
+    coord_flip()
+
+data2 %>% 
+    ggplot(aes(x = sex)) + geom_bar(fill = "pink") +
+    coord_flip()
+
+data2 %>% 
+    ggplot(aes(x = privins)) + geom_bar(fill = "pink") +
+    coord_flip()
+
+data2 %>% 
+    ggplot(aes(x = medicaid)) + geom_bar(fill = "pink") +
+    coord_flip()
+
+```
+
+```{r}
+data2 %>% 
+    ggplot(aes(x = actualage)) + geom_bar(fill = "pink")
+```
+
+```{r}
+data2 %>% 
+    ggplot(aes(x = numchron)) + geom_bar(aes(fill = privins))
+
+
+data2 %>% 
+    ggplot(aes(x = numchron)) + geom_bar(aes(fill = hlth))
+
+data2 %>% 
+    ggplot(aes(x = numchron)) + geom_bar(aes(fill = employed))
+```
+```{r}
+data2 %>% 
+    ggplot(aes(x = numchron, y = emr, colour = hlth)) + geom_point()
+
+data2 %>% 
+    ggplot(aes(x = numchron, y = emr, colour = privins)) + geom_point()
+           
+```
+```{r}
+data2 %>% 
+    ggplot(aes(x = actualincome, y = emr, colour = privins)) + geom_point()
+```
+```{r}
+data2 %>% 
+    ggplot(aes(x = emr)) + geom_bar(aes(fill = sex))
+```
+
+```{r}
+data2 %>% 
+    filter(black == "yes") %>% 
+    ggplot(aes(x = actualincome)) + geom_histogram(bins = 100)
+```
+
+```{r}
+data2 %>% 
+    filter(black == "yes") %>% 
+    ggplot(aes(x = numchron, y = emr, colour = employed)) + geom_point()
+```
+
