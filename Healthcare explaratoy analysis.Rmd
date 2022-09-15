@@ -40,16 +40,30 @@ summary(data)
 ```{r}
 data2 <- data %>% 
     mutate(actualage = age*10,
-           actualincome = faminc*10000)
+           familyincome = faminc*10000)
+data2          
 
-data2
 ```
 ```{r}
 
-library(knitr)
+library(sjPlot)
+view_df(data2, show.string.values = TRUE, show.values = TRUE, show.frq = TRUE, show.labels = TRUE, show.prc = TRUE)
+```
+
+
+
+```{r}
 
 data2 %>% 
-    kable(actualincome)
+    select(ofp,ofnp,opp,opnp,hlth) %>% 
+    filter(hlth == "poor") %>% 
+    summarise(across(1:4,mean))
+
+data2 %>% 
+    select(ofp,ofnp,opp,opnp,hlth) %>% 
+    filter(hlth == "excellent") %>% 
+    summarise(across(1:4,mean))
+
 ```
 
 
@@ -88,19 +102,23 @@ data2 %>%
     ggplot(aes(x = numchron)) + geom_bar(aes(fill = hlth))
 
 data2 %>% 
-    ggplot(aes(x = numchron)) + geom_bar(aes(fill = employed))
+    ggplot(aes(x = ofp)) + geom_bar(aes(fill = hlth))
 ```
 ```{r}
 data2 %>% 
-    ggplot(aes(x = numchron, y = emr, colour = hlth)) + geom_point()
+    ggplot(aes(x = numchron, y = ofp, colour = hlth)) + geom_point() + facet_wrap(~sex)
 
 data2 %>% 
-    ggplot(aes(x = numchron, y = emr, colour = privins)) + geom_point()
+    ggplot(aes(x = numchron, y = emr, colour = privins)) + geom_point() + facet_wrap(~black)
+
+
+data2 %>% 
+    ggplot(aes(x = numchron, y = emr, colour = privins)) + geom_point() + facet_wrap(~sex)
            
 ```
 ```{r}
 data2 %>% 
-    ggplot(aes(x = actualincome, y = emr, colour = privins)) + geom_point()
+    ggplot(aes(x = hlth, y= numchron, fill = privins)) + geom_boxplot()
 ```
 ```{r}
 data2 %>% 
@@ -116,6 +134,6 @@ data2 %>%
 ```{r}
 data2 %>% 
     filter(black == "yes") %>% 
-    ggplot(aes(x = numchron, y = emr, colour = employed)) + geom_point()
+    ggplot(aes(x = familyincome, y = ofp, colour = hlth)) + geom_point() + facet_wrap(~region)
 ```
 
