@@ -67,7 +67,6 @@ data2 %>%
 
 ```
 
-
 # Health across the different regions(Region Analysis)
 
 ```{r}
@@ -87,24 +86,16 @@ data2 %>%
 
 ```
 
-```{r}
-data2 %>% 
-    ggplot(aes(x = region,
-               y = ofp)) +
-    geom_boxplot()
-
-```
-
 ## Observation
 
-Most individuals in all the regions see a doctor between 0 and 25 times in a year regardless of the income earned. The ill individuals seem to be visiting the doctor more frequently compared to the healthy individuals in all the regions and they have an average of 2-4 chronic conditions.
+Most individuals in all the regions see a doctor between 0 and 25 times in a year regardless of the income earned. The ill individuals(poor health) seem to be visiting the doctor more frequently compared to the healthy individuals in all the regions and they have an average of 2-4 chronic conditions.
 
 In terms of insurance coverage, those with a low income seem to be insured by medicaid while the rest are insured by private insurance.
-
 
 # Health across demographics.
 
 ## Age
+
 ```{r}
 data2 %>% 
     ggplot(aes(x = actualage, y = ofp)) + geom_jitter()
@@ -112,14 +103,14 @@ data2 %>%
 
 ```{r}
 data2 %>% 
-    ggplot(aes(x = actualage, y = numchron, colour = hlth)) + geom_jitter()
+    ggplot(aes(x = actualage, y = numchron, fill = hlth)) + geom_boxplot()
 ```
 
 ## Sex
 
 ```{r}
 data2 %>% 
-    ggplot(aes(x = ofp)) + geom_bar(aes(fill = sex))
+    ggplot(aes(x = ofp)) + geom_histogram(aes(fill = sex), bins = 100)
 ```
 
 ```{r}
@@ -129,12 +120,11 @@ data2 %>%
 
 ```
 
-
-
 ```{r}
 data2 %>% 
-    ggplot(aes(x = numchron, y = ofp, colour = hlth)) + geom_jitter() + facet_wrap(~sex)
+    ggplot(aes(x = ofp, y = numchron, fill = hlth)) + geom_boxplot() + facet_wrap(~sex)
 ```
+
 ## Race
 
 ```{r}
@@ -156,14 +146,13 @@ data2 %>%
 data2 %>% 
     ggplot(aes(x = ofp, y = numchron, colour = medicaid)) + geom_point() + facet_wrap(~black)
 ```
-```{r}
-data2 %>% 
-    ggplot(aes(x = faminc)) + geom_histogram(aes(fill = medicaid), bins = 30) + facet_wrap(~black)
-
-```
-
-
 
 ## Observations
 
-Race does not seem to be influencing the number of hospital visits. In terms of insurance coverage, a majority of the African American population are not covered by private insurance. Those who have at least one chronic condition are covered by medicaid.
+The number of hospital visits seem to be reducing with increased age. This could be as a result of reduced mobility for individuals greater than 85 years
+
+Age does not seem to influence the number of chronic conditions. On average however, individuals between age 80-90 have the highest number of chronic diseases and their health is considered poor while individuals between 70-89 have the lowest number of chronic conditions and their health is considered excellent
+
+In terms of gender, the number of visits to the physician is relatively similar for both groups. More females with a low income are covered by Medicaid compared to males. There is not much difference for private insurance. Males with a highest number of chronic diseases visit the physician more(on average 60 times a year) compared to the females with the highest number of chronic diseases(on average 25 times a year)
+
+Race does not seem to be influencing the number of emergency hospital visits. The non African- American population however, has a higher number of chronic diseases. In terms of insurance coverage, a majority of the African American population are not covered by private insurance. Those who have at least one chronic condition are covered by medicaid and those who have at least 4 chronic conditions are covered by private insurance.
