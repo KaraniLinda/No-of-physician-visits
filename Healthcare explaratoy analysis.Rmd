@@ -8,7 +8,7 @@ date: "2022-09-13"
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r}
+```{r include=FALSE}
 #Loading necessary libraries
 
 library(tidyverse)
@@ -29,13 +29,11 @@ data <- read.csv("Health data set.csv")
 glimpse(data)
 ```
 
-```{r}
-summary(data)
-```
+
 
 # Data transformation
 
-```{r}
+```{r include=FALSE}
 data2 <- data %>% 
     mutate(actualage = age*10,
            familyincome = faminc*10000)
@@ -43,7 +41,7 @@ data2
 
 ```
 
-```{r}
+```{r warning=FALSE}
 
 #Frequency and range of the variables
 
